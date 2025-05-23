@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %} レビュー削除 {% endblock %}
+
+{% block content %}
+<form method="POST">{% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">このレビューを削除する</button>
+</form>
+{% endblock content %}
