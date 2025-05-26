@@ -17,11 +17,11 @@ from .consts import ITEM_PER_PAGE
 
 
 # Create your views here.
-class ListSuppliesView(LoginRequiredMixin,ListView):
+class ListSuppliesView(LoginRequiredMixin,ListView): # 確認済み
     model = Supplies
     template_name = 'supplies/list.html'
 
-class DetailSuppliesView(LoginRequiredMixin,DetailView):
+class DetailSuppliesView(LoginRequiredMixin,DetailView): # 確認済み
     model = Supplies
     template_name = 'supplies/detail.html'
     # ↓ここから追記
