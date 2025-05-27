@@ -1,0 +1,19 @@
+/* a {
+    text-decoration: none;
+} */
+
+/* .nav-link {
+color: white;
+} */
+
+.navbar, .navbar a, .navbar-brand, .nav-link {
+    color: white;
+}
+
+ul{
+    padding-left:0;
+  }
+  
+  li{
+    list-style:none;
+  }
