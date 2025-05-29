@@ -12,24 +12,34 @@
 <body>
     
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #006633;">
-      {% if request.user.is_authenticated %}
+      {% if request.user.is_authenticated %} <!--ユーザーがログインしているか判定-->
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'index' %}"><b>社内備品<br>管理システム</b></a>
           <div class="collapse navbar-collapse" id="navbarScroll">
             
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'list-supplies' %}">備品一覧</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'create-supplies' %}">備品登録</a>
-              </li>
-            </ul>
-            <li class="nav-item">
-              <form action="{% url 'accounts:logout' %}" method="post">{% csrf_token %}
-                <button type="submit" class="btn btn-link nav-link">ログアウト</button>
-              </form>
-            <!-- <a class="nav-link" href="{% url 'accounts:logout' %}">ログアウト</a> -->
+
+              <!--sase_記述start-->
+              {% if not request.user.username|slice:":5" == "admin" %}
+                <!-- 利用者のみ表示 -->
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'rental-list'%}">レンタル一覧</a>
+                </li>
+              {% else %}
+                <!-- 管理者のみ表示 -->
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'list-supplies' %}">備品一覧</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'create-supplies' %}">備品登録</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'lend-supplies' %}">貸出一覧</a>
+                </li>  
+              {% endif %}
+
+              <!--sase_記述end-->
+              <!--<a class="nav-link" href="{% url 'accounts:logout' %}">ログアウト</a>-->
             </li>
       {% else %}
       <div class="container-fluid">

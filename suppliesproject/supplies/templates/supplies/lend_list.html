@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %} 貸出一覧 {% endblock %}
+{% block h1 %} 貸出一覧 {% endblock %}
+
+{% block content %}
+
+<table>
+    <tr>
+        <th>ユーザーID</th>
+        <th>ユーザー名</th>
+        <th>備品ID</th>
+        <th>備品名</th>
+        <th>貸出数</th>
+        <th>返却日</th>
+        <th>詳細</th>
+    </tr>
+
+    {% for item in object_list %}
+    {% if item.lend > 0 %}
+    <tr>
+        <th>{{ item.user }}</th>
+        <th>{{ item.user.username }}</th>
+        <th>{{ item.lendid.pk }}</th>
+        <th>{{ item.lendid }}</th>
+        <th>{{ item.lend }}</th>
+        <th>{{ item.date|date:"Y/n/j" }}</th>
+        <th><a href="{% url 'detail-supplies' pk=item.lendid.pk %}">詳細</a></th>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+
+{% endblock content %}

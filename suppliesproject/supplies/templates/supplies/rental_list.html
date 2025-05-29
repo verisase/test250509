@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} 備品レンタル一覧 {% endblock %}
+{% block h1 %} 備品レンタル一覧 {% endblock %}
+
+{% block content %}
+
+<table>
+    <tr>
+        <th>備品名</th>
+        <th>返却日</th>
+        <th>詳細</th>
+        <th>返却</th>
+        <th>破棄</th>
+    </tr>
+
+    {% for item in object_list %}
+    {% if request.user.username == item.user.username %}
+    {% if item.lend > 0 %}
+    <tr>
+        <th>{{ item.lendid.title }}</th>
+        <th>{{ item.date|date:"Y/n/j" }}</th>
+        <th><a href="{% url 'detail-supplies' pk=item.lendid.pk %}">詳細</a></th>
+        <th><a href="{% url 'detail-supplies' pk=item.pk %}">返却</a></th>
+        <th><a href="{% url 'throw-rental' pk=item.pk %}">破棄</a></th>
+    </tr>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+</table>
+
+{% endblock content %}

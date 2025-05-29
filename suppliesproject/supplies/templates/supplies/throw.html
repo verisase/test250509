@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %} 備品作成 {% endblock %}
+{% block title %} 備品破棄 {% endblock %}
 
 {% block content %}
 <form method="POST" enctype="multipart/form-data" class="p-4 m-4 bg-light border border-success rounded form-group">{% csrf_token %}
     {{form.as_p}}
-    <input type="submit" value="作成する">
+    <button type="submit">{{object.lendid}}を破棄する</button>
 </form>
-{% endblock content %}
+{% endblock %}

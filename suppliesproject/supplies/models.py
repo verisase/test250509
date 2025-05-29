@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 CATEGORY = (
     ('tool', '道具'),
@@ -15,6 +14,7 @@ RATE_CHOICES = (
     (5,'★★★★★'),
 )
 
+LEND = ((i, str(i)) for i in range(1,100))
 
 class Supplies(models.Model):
     title = models.CharField(max_length=100)
@@ -24,10 +24,25 @@ class Supplies(models.Model):
         max_length=100,
         choices = CATEGORY
     )
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    tag = models.CharField(max_length=100,null=True, blank=True)
+    lend = models.IntegerField(null=True, blank=True, default=0)
+    allsupplies = models.IntegerField(null=True, blank=True)
+    stamp = models.IntegerField(null=True, blank=True, default=0)
+    borrowed = models.IntegerField(null=True, blank=True,default=0)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE,null=True, blank=True)
 
     def __str__(self):
         return self.title
+
+class Lendingsupplies(models.Model):
+    lend = models.IntegerField(choices=LEND)
+    date = models.DateField()
+    destruction = models.IntegerField(default=0, choices=LEND)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    lendid = models.ForeignKey(Supplies, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.lendid.title
 
 class Review(models.Model):
     title = models.CharField(max_length=100)
@@ -38,3 +53,4 @@ class Review(models.Model):
 
     def __str__(self):
         return self.title
+

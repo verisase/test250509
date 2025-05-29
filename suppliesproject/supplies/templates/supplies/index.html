@@ -4,6 +4,10 @@
 {% block h1 %} 備品一覧 {% endblock %}
 
 {% block content %}
+<form action="" method="get">
+    <input name="query" value="{{ request.GET.query}}"type="text" />
+    <button type="submit">🔍</button>
+</form>
 <div class="row">
   <div class="col-9">
     {% for item in object_list %}
